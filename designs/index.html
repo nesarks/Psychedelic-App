@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Journey | Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/custom.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        secondary: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        neutral: {
+                            50: '#fafafa',
+                            100: '#f5f5f5',
+                            200: '#e5e5e5',
+                            300: '#d4d4d4',
+                            400: '#a3a3a3',
+                            500: '#737373',
+                            600: '#525252',
+                            700: '#404040',
+                            800: '#262626',
+                            900: '#171717',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-primary-50 to-secondary-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-12">
+            <h1 class="text-2xl md:text-3xl font-light text-primary-700">Mindful Journey</h1>
+            <div class="relative">
+                <button id="userMenuBtn" class="flex items-center space-x-2 focus:outline-none">
+                    <span class="text-neutral-600 text-sm md:text-base">Welcome, <span id="userName">Friend</span></span>
+                    <div class="w-10 h-10 rounded-full bg-primary-200 flex items-center justify-center text-primary-700">
+                        <span id="userInitial">F</span>
+                    </div>
+                </button>
+                <div id="userMenu" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden">
+                    <div class="py-1">
+                        <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-primary-50">Profile</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-primary-50">Settings</a>
+                        <a href="#" id="privacyToggle" class="flex justify-between px-4 py-2 text-sm text-neutral-700 hover:bg-primary-50">
+                            <span>Local-only Mode</span>
+                            <span class="relative inline-block w-10 h-5 transition duration-200 ease-in-out bg-neutral-200 rounded-full">
+                                <label for="privacy" class="absolute inset-0 cursor-pointer"></label>
+                                <input type="checkbox" id="privacy" class="absolute w-0 h-0 opacity-0">
+                                <span class="absolute w-5 h-5 transition duration-200 ease-in-out transform bg-white rounded-full shadow-sm"></span>
+                            </span>
+                        </a>
+                        <a href="#" class="block px-4 py-2 text-sm text-red-500 hover:bg-red-50">Emergency Exit</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Welcome Card -->
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8 text-center">
+                <h2 class="text-2xl text-primary-700 mb-3">Welcome to Your Mindful Journey</h2>
+                <p class="text-neutral-600 max-w-lg mx-auto">This space is designed to support your exploration, growth, and healing. Choose your path below to begin.</p>
+            </div>
+
+            <!-- Main Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <!-- Prepare Card -->
+                <a href="preparation.html" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow duration-200 flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center mb-4 group-hover:bg-primary-200 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl text-primary-700 mb-2">Prepare for Journey</h3>
+                    <p class="text-neutral-500">Set intentions, create a safe environment, and mentally prepare.</p>
+                </a>
+                
+                <!-- Trip Mode Card -->
+                <a href="trip-mode.html" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow duration-200 flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-full bg-secondary-100 flex items-center justify-center mb-4 group-hover:bg-secondary-200 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-secondary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl text-secondary-700 mb-2">Enter Trip Mode</h3>
+                    <p class="text-neutral-500">A safe space with guidance and support during your experience.</p>
+                </a>
+                
+                <!-- Reflection Card -->
+                <a href="journal.html" class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow duration-200 flex flex-col items-center text-center group">
+                    <div class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center mb-4 group-hover:bg-primary-200 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl text-primary-700 mb-2">Post-Trip Reflection</h3>
+                    <p class="text-neutral-500">Journal your insights and integrate your experience.</p>
+                </a>
+            </div>
+
+            <!-- Secondary Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Microdose Planner -->
+                <a href="microdose.html" class="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow duration-200 flex items-center group">
+                    <div class="w-12 h-12 rounded-full bg-secondary-100 flex items-center justify-center mr-4 group-hover:bg-secondary-200 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-secondary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg text-secondary-700 mb-1">Microdose Planner</h3>
+                        <p class="text-neutral-500 text-sm">Track your schedule and manage tolerance.</p>
+                    </div>
+                </a>
+                
+                <!-- Resources -->
+                <a href="#" class="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow duration-200 flex items-center group">
+                    <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mr-4 group-hover:bg-primary-200 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg text-primary-700 mb-1">Resources & Education</h3>
+                        <p class="text-neutral-500 text-sm">Learn about safe practices and integration.</p>
+                    </div>
+                </a>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-neutral-500 text-sm">
+            <p>This tool is designed for harm reduction and personal growth. If you're experiencing a medical emergency, please call 911.</p>
+            <div class="mt-2">
+                <button id="emergencyBtn" class="text-red-500 hover:underline">Emergency Resources</button>
+                <span class="mx-2">•</span>
+                <button id="privacyBtn" class="text-neutral-500 hover:underline">Privacy</button>
+                <span class="mx-2">•</span>
+                <button id="aboutBtn" class="text-neutral-500 hover:underline">About</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div id="emergencyModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+            <h3 class="text-xl text-red-600 mb-4">Emergency Resources</h3>
+            <ul class="mb-6 space-y-3">
+                <li class="flex items-start">
+                    <span class="text-red-500 mr-2">•</span>
+                    <div>
+                        <strong class="block">Emergency Services: 911</strong>
+                        <span class="text-sm text-neutral-600">For immediate medical emergencies</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-red-500 mr-2">•</span>
+                    <div>
+                        <strong class="block">Crisis Text Line: Text HOME to 741741</strong>
+                        <span class="text-sm text-neutral-600">24/7 support from trained crisis counselors</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-red-500 mr-2">•</span>
+                    <div>
+                        <strong class="block">Fireside Project: 62-FIRESIDE</strong>
+                        <span class="text-sm text-neutral-600">Psychedelic peer support line</span>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-red-500 mr-2">•</span>
+                    <div>
+                        <strong class="block">Poison Control: 1-800-222-1222</strong>
+                        <span class="text-sm text-neutral-600">For substance-related emergencies</span>
+                    </div>
+                </li>
+            </ul>
+            <button id="closeEmergencyModal" class="w-full py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-colors duration-200">Close</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

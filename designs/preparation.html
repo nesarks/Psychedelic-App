@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Journey | Preparation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/custom.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        secondary: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        neutral: {
+                            50: '#fafafa',
+                            100: '#f5f5f5',
+                            200: '#e5e5e5',
+                            300: '#d4d4d4',
+                            400: '#a3a3a3',
+                            500: '#737373',
+                            600: '#525252',
+                            700: '#404040',
+                            800: '#262626',
+                            900: '#171717',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-primary-50 to-secondary-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header with back button -->
+        <header class="flex items-center mb-8">
+            <a href="index.html" class="mr-4 text-neutral-600 hover:text-primary-600 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+            </a>
+            <h1 class="text-2xl font-light text-primary-700">Prepare for Your Journey</h1>
+        </header>
+
+        <!-- Progress indicator -->
+        <div class="w-full bg-neutral-200 rounded-full h-2 mb-8">
+            <div id="progressBar" class="bg-primary-500 h-2 rounded-full" style="width: 25%"></div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="bg-white rounded-xl shadow-sm p-6 md:p-8 mb-8">
+            <!-- Step navigation -->
+            <div class="flex border-b border-neutral-200 mb-6">
+                <button data-step="1" class="step-btn px-4 py-2 text-primary-600 border-b-2 border-primary-500 font-medium">Intention</button>
+                <button data-step="2" class="step-btn px-4 py-2 text-neutral-400">Substance</button>
+                <button data-step="3" class="step-btn px-4 py-2 text-neutral-400">Safety</button>
+                <button data-step="4" class="step-btn px-4 py-2 text-neutral-400">Guidelines</button>
+            </div>
+
+            <!-- Step 1: Intention -->
+            <div id="step1" class="step-content">
+                <h2 class="text-xl text-primary-700 mb-4">Set Your Intention</h2>
+                <p class="text-neutral-600 mb-6">Taking time to clarify your intention helps guide your experience and provides a foundation for integration afterward.</p>
+                
+                <div class="mb-6">
+                    <label for="intentionType" class="block text-neutral-700 mb-2">What type of intention would you like to set?</label>
+                    <select id="intentionType" class="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none transition">
+                        <option value="">Choose an intention type...</option>
+                        <option value="healing">Emotional/Psychological Healing</option>
+                        <option value="growth">Personal Growth</option>
+                        <option value="creativity">Creative Exploration</option>
+                        <option value="spiritual">Spiritual Connection</option>
+                        <option value="custom">Custom (Write Your Own)</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="intentionDetails" class="block text-neutral-700 mb-2">Describe your intention in more detail:</label>
+                    <textarea id="intentionDetails" rows="4" class="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none transition" placeholder="I am approaching this experience with the intention to..."></textarea>
+                </div>
+
+                <div class="flex justify-between items-center pt-4">
+                    <button id="saveIntention" class="px-4 py-2 bg-neutral-100 text-neutral-600 rounded-lg hover:bg-neutral-200 transition-colors duration-200">Save Draft</button>
+                    <button id="nextToStep2" class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200">Next: Substance</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Substance -->
+            <div id="step2" class="step-content hidden">
+                <h2 class="text-xl text-primary-700 mb-4">Choose Your Substance</h2>
+                <p class="text-neutral-600 mb-6">Different substances offer different experiences. Select what you'll be working with so we can provide appropriate guidance.</p>
+                
+                <div class="mb-6">
+                    <label for="substanceType" class="block text-neutral-700 mb-2">Substance:</label>
+                    <select id="substanceType" class="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none transition">
+                        <option value="">Select a substance...</option>
+                        <option value="psilocybin">Psilocybin Mushrooms</option>
+                        <option value="lsd">LSD</option>
+                        <option value="mdma">MDMA</option>
+                        <option value="dmt">DMT</option>
+                        <option value="ayahuasca">Ayahuasca</option>
+                        <option value="ketamine">Ketamine</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="dosage" class="block text-neutral-700 mb-2">Approximate Dosage:</label>
+                    <div class="flex items-center">
+                        <input type="number" id="dosage" class="w-1/3 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none transition" placeholder="Amount">
+                        <select id="dosageUnit" class="ml-2 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none transition">
+                            <option value="mg">mg</option>
+                            <option value="g">g</option>
+                            <option value="mcg">mcg</option>
+                            <option value="tabs">tabs</option>
+                            <option value="other">other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="experienceLevel" class="block text-neutral-700 mb-2">Your experience level with this substance:</label>
+                    <div class="flex flex-wrap gap-3">
+                        <label class="flex items-center p-3 border border-neutral-300 rounded-lg cursor-pointer hover:bg-primary-50 transition-colors">
+                            <input type="radio" name="experienceLevel" value="first" class="mr-2">
+                            <span>First time</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-neutral-300 rounded-lg cursor-pointer hover:bg-primary-50 transition-colors">
+                            <input type="radio" name="experienceLevel" value="beginner" class="mr-2">
+                            <span>Beginner (1-3 times)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-neutral-300 rounded-lg cursor-pointer hover:bg-primary-50 transition-colors">
+                            <input type="radio" name="experienceLevel" value="intermediate" class="mr-2">
+                            <span>Intermediate</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-neutral-300 rounded-lg cursor-pointer hover:bg-primary-50 transition-colors">
+                            <input type="radio" name="experienceLevel" value="experienced" class="mr-2">
+                            <span>Experienced</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4">
+                    <button id="backToStep1" class="px-4 py-2 bg-neutral-100 text-neutral-600 rounded-lg hover:bg-neutral-200 transition-colors duration-200">Back</button>
+                    <button id="nextToStep3" class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200">Next: Safety</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Safety Checklist -->
+            <div id="step3" class="step-content hidden">
+                <h2 class="text-xl text-primary-700 mb-4">Safety Checklist</h2>
+                <p class="text-neutral-600 mb-6">Creating a safe environment is essential for a positive experience. Use this checklist to ensure you've covered the basics.</p>
+                
+                <div class="mb-6 space-y-4">
+                    <div class="flex items-start">
+                        <input type="checkbox" id="sitterAvailable" class="mt-1 mr-3">
+                        <div>
+                            <label for="sitterAvailable" class="block text-neutral-700 font-medium">Trip sitter or trusted friend available</label>
+                            <p class="text-neutral-500 text-sm">Having someone you trust who is sober and available can provide safety and reassurance</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <input type="checkbox" id="safeEnvironment" class="mt-1 mr-3">
+                        <div>
+                            <label for="safeEnvironment" class="block text-neutral-700 font-medium">Safe, comfortable environment</label>
+                            <p class="text-neutral-500 text-sm">A clean, comfortable, familiar space without hazards</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <input type="checkbox" id="waterAvailable" class="mt-1 mr-3">
+                        <div>
+                            <label for="waterAvailable" class="block text-neutral-700 font-medium">Water and light snacks nearby</label>
+                            <p class="text-neutral-500 text-sm">Stay hydrated and have easy-to-eat foods available</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <input type="checkbox" id="phoneSilenced" class="mt-1 mr-3">
+                        <div>
+                            <label for="phoneSilenced" class="block text-neutral-700 font-medium">Phone silenced, distractions minimized</label>
+                            <p class="text-neutral-500 text-sm">Unexpected calls or notifications can be disruptive</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <input type="checkbox" id="commitmentFree" class="mt-1 mr-3">
+                        <div>
+                            <label for="commitmentFree" class="block text-neutral-700 font-medium">No commitments for the rest of the day</label>
+                            <p class="text-neutral-500 text-sm">Ensure you have time for the full experience and recovery</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <input type="checkbox" id="medicationCheck" class="mt-1 mr-3">
+                        <div>
+                            <label for="medicationCheck" class="block text-neutral-700 font-medium">Checked for medication interactions</label>
+                            <p class="text-neutral-500 text-sm">Certain medications can interact negatively with psychedelics</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <h3 class="text-yellow-800 font-medium mb-2">Custom Safety Items</h3>
+                    <p class="text-yellow-700 text-sm mb-3">Add any additional safety measures specific to your needs:</p>
+                    <div class="flex">
+                        <input type="text" id="customSafety" class="flex-1 p-2 border border-yellow-300 rounded-l-lg focus:ring-2 focus:ring-yellow-200 focus:border-yellow-400 outline-none transition" placeholder="Add a custom safety item...">
+                        <button id="addCustomSafety" class="px-4 py-2 bg-yellow-400 text-yellow-800 rounded-r-lg hover:bg-yellow-500 transition-colors duration-200">Add</button>
+                    </div>
+                    <ul id="customSafetyList" class="mt-3 space-y-2">
+                        <!-- Custom items will be added here -->
+                    </ul>
+                </div>
+
+                <div class="flex justify-between items-center pt-6">
+                    <button id="backToStep2" class="px-4 py-2 bg-neutral-100 text-neutral-600 rounded-lg hover:bg-neutral-200 transition-colors duration-200">Back</button>
+                    <button id="nextToStep4" class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200">Next: Guidelines</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Guidelines -->
+            <div id="step4" class="step-content hidden">
+                <h2 class="text-xl text-primary-700 mb-4">Journey Guidelines</h2>
+                <p class="text-neutral-600 mb-6">Here are some helpful guidelines to support your experience. Review them before you begin.</p>
+                
+                <!-- Do's Section -->
+                <div class="mb-6">
+                    <h3 class="flex items-center text-green-700 font-medium mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Do's
+                    </h3>
+                    <div class="bg-green-50 border border-green-100 rounded-lg p-4">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">•</span>
+                                <span>Surrender to the experience, allow it to unfold naturally</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">•</span>
+                                <span>Remember difficult moments will pass ("this too shall pass")</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">•</span>
+                                <span>Use deep breathing to center yourself if needed</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">•</span>
+                                <span>Have a trusted friend available (in person or by phone)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">•</span>
+                                <span>Stay hydrated throughout your experience</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Don'ts Section -->
+                <div class="mb-6">
+                    <h3 class="flex items-center text-red-700 font-medium mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        Don'ts
+                    </h3>
+                    <div class="bg-red-50 border border-red-100 rounded-lg p-4">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-2">•</span>
+                                <span>Don't fight against challenging experiences - approach with curiosity</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-2">•</span>
+                                <span>Avoid driving or operating machinery</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-2">•</span>
+                                <span>Don't make major life decisions during the experience</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-2">•</span>
+                                <span>Avoid public or unfamiliar environments</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-500 mr-2">•</span>
+                                <span>Don't mix with alcohol or other substances without research</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Additional Resources -->
+                <div class="mb-6 p-4 bg-primary-50 border border-primary-100 rounded-lg">
+                    <h3 class="text-primary-700 font-medium mb-2">Have these ready to access during your journey:</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                            <span>Favorite calming music or playlists</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                            <span>Comfortable blankets and pillows</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                            <span>Eye mask or soft lighting options</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                            <span>Journal or voice recorder for insights</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="flex justify-between items-center pt-4">
+                    <button id="backToStep3" class="px-4 py-2 bg-neutral-100 text-neutral-600 rounded-lg hover:bg-neutral-200 transition-colors duration-200">Back</button>
+                    <button id="startJourney" class="px-6 py-3 bg-secondary-600 text-white rounded-lg hover:bg-secondary-700 transition-colors duration-200 flex items-center">
+                        <span>Start Journey</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Tips Section -->
+        <aside class="bg-white rounded-xl shadow-sm p-6 mb-8">
+            <h2 class="text-lg text-primary-700 mb-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Preparation Tips
+            </h2>
+            <div class="text-neutral-600">
+                <p class="mb-3">Taking time to prepare mentally, emotionally, and environmentally can significantly enhance your psychedelic experience.</p>
+                <p>Consider meditating for a few minutes before starting, and remember that your intention can guide the experience but shouldn't restrict where it naturally leads you.</p>
+            </div>
+        </aside>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Step navigation functionality
+        const steps = ['step1', 'step2', 'step3', 'step4'];
+        const progressBar = document.getElementById('progressBar');
+        let currentStep = 1;
+
+        function showStep(stepNumber) {
+            // Hide all steps
+            steps.forEach((step, index) => {
+                document.getElementById(step).classList.add('hidden');
+                document.querySelectorAll('.step-btn')[index].classList.remove('text-primary-600', 'border-b-2', 'border-primary-500', 'font-medium');
+                document.querySelectorAll('.step-btn')[index].classList.add('text-neutral-400');
+            });
+            
+            // Show current step
+            document.getElementById(`step${stepNumber}`).classList.remove('hidden');
+            document.querySelectorAll('.step-btn')[stepNumber-1].classList.remove('text-neutral-400');
+            document.querySelectorAll('.step-btn')[stepNumber-1].classList.add('text-primary-600', 'border-b-2', 'border-primary-500', 'font-medium');
+            
+            // Update progress bar
+            progressBar.style.width = `${stepNumber * 25}%`;
+            
+            currentStep = stepNumber;
+        }
+
+        // Add event listeners for step buttons
+        document.querySelectorAll('.step-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                showStep(parseInt(btn.dataset.step));
+            });
+        });
+
+        // Next and back buttons
+        document.getElementById('nextToStep2').addEventListener('click', () => showStep(2));
+        document.getElementById('backToStep1').addEventListener('click', () => showStep(1));
+        document.getElementById('nextToStep3').addEventListener('click', () => showStep(3));
+        document.getElementById('backToStep2').addEventListener('click', () => showStep(2));
+        document.getElementById('nextToStep4').addEventListener('click', () => showStep(4));
+        document.getElementById('backToStep3').addEventListener('click', () => showStep(3));
+
+        // Start Journey button
+        document.getElementById('startJourney').addEventListener('click', () => {
+            // Collect all preparation data
+            const prepData = {
+                intention: {
+                    type: document.getElementById('intentionType').value,
+                    details: document.getElementById('intentionDetails').value
+                },
+                substance: {
+                    type: document.getElementById('substanceType').value,
+                    dosage: document.getElementById('dosage').value,
+                    unit: document.getElementById('dosageUnit').value,
+                    experienceLevel: document.querySelector('input[name="experienceLevel"]:checked')?.value || ''
+                },
+                safety: {
+                    sitterAvailable: document.getElementById('sitterAvailable').checked,
+                    safeEnvironment: document.getElementById('safeEnvironment').checked,
+                    waterAvailable: document.getElementById('waterAvailable').checked,
+                    phoneSilenced: document.getElementById('phoneSilenced').checked,
+                    commitmentFree: document.getElementById('commitmentFree').checked,
+                    medicationCheck: document.getElementById('medicationCheck').checked,
+                    customItems: Array.from(document.getElementById('customSafetyList').children).map(li => li.textContent)
+                }
+            };
+            
+            // Save to localStorage for persistence
+            localStorage.setItem('tripPreparation', JSON.stringify(prepData));
+            
+            // Redirect to trip mode
+            window.location.href = 'trip-mode.html';
+        });
+
+        // Custom safety items functionality
+        document.getElementById('addCustomSafety').addEventListener('click', () => {
+            const customInput = document.getElementById('customSafety');
+            const customText = customInput.value.trim();
+            
+            if (customText) {
+                const li = document.createElement('li');
+                li.className = 'flex items-center text-yellow-800';
+                li.innerHTML = `
+                    <input type="checkbox" class="mr-2">
+                    <span>${customText}</span>
+                    <button class="ml-auto text-yellow-600 hover:text-yellow-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                `;
+                
+                // Add delete functionality
+                li.querySelector('button').addEventListener('click', () => {
+                    li.remove();
+                });
+                
+                document.getElementById('customSafetyList').appendChild(li);
+                customInput.value = '';
+            }
+        });
+
+        // Allow pressing Enter to add custom safety item
+        document.getElementById('customSafety').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('addCustomSafety').click();
+            }
+        });
+
+        // Load saved data if available
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedData = JSON.parse(localStorage.getItem('tripPreparation') || '{}');
+            
+            if (savedData.intention) {
+                document.getElementById('intentionType').value = savedData.intention.type || '';
+                document.getElementById('intentionDetails').value = savedData.intention.details || '';
+            }
+            
+            if (savedData.substance) {
+                document.getElementById('substanceType').value = savedData.substance.type || '';
+                document.getElementById('dosage').value = savedData.substance.dosage || '';
+                document.getElementById('dosageUnit').value = savedData.substance.unit || 'mg';
+                
+                if (savedData.substance.experienceLevel) {
+                    const radioBtn = document.querySelector(`input[name="experienceLevel"][value="${savedData.substance.experienceLevel}"]`);
+                    if (radioBtn) radioBtn.checked = true;
+                }
+            }
+            
+            if (savedData.safety) {
+                document.getElementById('sitterAvailable').checked = savedData.safety.sitterAvailable || false;
+                document.getElementById('safeEnvironment').checked = savedData.safety.safeEnvironment || false;
+                document.getElementById('waterAvailable').checked = savedData.safety.waterAvailable || false;
+                document.getElementById('phoneSilenced').checked = savedData.safety.phoneSilenced || false;
+                document.getElementById('commitmentFree').checked = savedData.safety.commitmentFree || false;
+                document.getElementById('medicationCheck').checked = savedData.safety.medicationCheck || false;
+                
+                if (savedData.safety.customItems && Array.isArray(savedData.safety.customItems)) {
+                    savedData.safety.customItems.forEach(item => {
+                        const li = document.createElement('li');
+                        li.className = 'flex items-center text-yellow-800';
+                        li.innerHTML = `
+                            <input type="checkbox" class="mr-2">
+                            <span>${item}</span>
+                            <button class="ml-auto text-yellow-600 hover:text-yellow-800">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        `;
+                        
+                        li.querySelector('button').addEventListener('click', () => {
+                            li.remove();
+                        });
+                        
+                        document.getElementById('customSafetyList').appendChild(li);
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

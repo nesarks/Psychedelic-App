@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Journey | Microdose Planner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/custom.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        secondary: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        neutral: {
+                            50: '#fafafa',
+                            100: '#f5f5f5',
+                            200: '#e5e5e5',
+                            300: '#d4d4d4',
+                            400: '#a3a3a3',
+                            500: '#737373',
+                            600: '#525252',
+                            700: '#404040',
+                            800: '#262626',
+                            900: '#171717',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-primary-50 to-secondary-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header with back button -->
+        <header class="flex items-center mb-8">
+            <a href="index.html" class="mr-4 text-neutral-600 hover:text-primary-600 transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+            </a>
+            <h1 class="text-2xl font-light text-primary-700">Microdose Planner</h1>
+        </header>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Microdose Setup Column -->
+            <div class="md:col-span-2">
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <h2 class="text-xl text-primary-700 mb-4">Microdose Protocol Setup</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="substanceType" class="block text-neutral-700 mb-1">Substance</label>
+                            <select id="substanceType" class="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none transition">
+                                <option value="">Select a substance...</option>
+                                <option value="psilocybin">Psilocybin Mushrooms</option>
+                                <option value="lsd">LSD</option>
+                                <option value="1p-lsd">1P-LSD</option>
+                                <option value="dmt">DMT</option>
+                                <option value="5-meo-dmt">5-MeO-DMT</option>
+                                <option value="mescaline">Mescaline</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div id="otherSubstanceField" class="hidden">
+                            <label for="otherSubstance" class="block text-neutral-700 mb-1">Specify Other</label>
+                            <input type="text" id="otherSubstance" class="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none">
+                        </div>
+                        
+                        <div>
+                            <label for="dosageAmount" class="block text-neutral-700 mb-1">Dosage Amount</label>
+                            <div class="flex">
+                                <input type="number" id="dosageAmount" class="w-2/3 p-3 border border-neutral-300 rounded-l-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none" placeholder="e.g., 0.1">
+                                <select id="dosageUnit" class="w-1/3 p-3 border border-neutral-300 rounded-r-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none">
+                                    <option value="g">g</option>
+                                    <option value="mg">mg</option>
+                                    <option value="mcg">mcg</option>
+                                    <option value="drops">drops</option>
+                                    <option value="tabs">tabs</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="scheduleType" class="block text-neutral-700 mb-1">Schedule Type</label>
+                            <select id="scheduleType" class="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none">
+                                <option value="fadiman">Fadiman Protocol (1 day on, 2 days off)</option>
+                                <option value="stamets">Stamets Stack (4 days on, 3 days off)</option>
+                                <option value="everyOtherDay">Every Other Day</option>
+                                <option value="twice-weekly">Twice Weekly</option>
+                                <option value="custom">Custom Schedule</option>
+                            </select>
+                        </div>
+                        
+                        <div id="customScheduleField" class="hidden">
+                            <label for="customSchedule" class="block text-neutral-700 mb-1">Custom Schedule Pattern</label>
+                            <input type="text" id="customSchedule" class="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none" placeholder="e.g., Mon/Thu or Every 3 days">
+                        </div>
+                        
+                        <div>
+                            <label for="startDate" class="block text-neutral-700 mb-1">Start Date</label>
+                            <input type="date" id="startDate" class="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none">
+                        </div>
+                        
+                        <div>
+                            <label for="endDate" class="block text-neutral-700 mb-1">End Date (Optional)</label>
+                            <input type="date" id="endDate" class="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="notes" class="block text-neutral-700 mb-1">Notes (optional)</label>
+                        <textarea id="notes" rows="2" class="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-300 focus:border-primary-500 outline-none" placeholder="Additional details about your protocol..."></textarea>
+                    </div>
+                    
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="enableReminders" class="mr-2">
+                            <label for="enableReminders" class="text-neutral-600">Enable calendar reminders</label>
+                        </div>
+                        <button id="generateSchedule" class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200">Generate Schedule</button>
+                    </div>
+                </div>
+                
+                <!-- Schedule Display -->
+                <div id="scheduleContainer" class="bg-white rounded-xl shadow-sm p-6 hidden">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl text-primary-700">Your Microdose Schedule</h2>
+                        <div>
+                            <button id="editSchedule" class="px-4 py-1 bg-neutral-100 text-neutral-600 rounded-lg hover:bg-neutral-200 transition-colors duration-200 text-sm">Edit</button>
+                            <button id="exportSchedule" class="px-4 py-1 bg-neutral-100 text-neutral-600 rounded-lg hover:bg-neutral-200 transition-colors duration-200 text-sm ml-2">Export</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4 p-4 bg-secondary-50 border border-secondary-100 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <h3 class="font-medium text-secondary-800">Tolerance Reset Recommendation</h3>
+                        </div>
+                        <p class="text-secondary-800">
+                            Based on your protocol, we recommend a <span id="toleranceReset" class="font-medium">2-week break</span> after completing your schedule to reset tolerance.
+                        </p>
+                    </div>
+                    
+                    <!-- Calendar View -->
+                    <div id="calendarView" class="border border-neutral-200 rounded-lg overflow-hidden">
+                        <!-- Calendar header -->
+                        <div class="flex justify-between items-center p-4 bg-neutral-50 border-b border-neutral-200">
+                            <button id="prevMonth" class="text-neutral-600 hover:text-primary-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+                            <h3 id="currentMonth" class="text-lg font-medium text-neutral-800">July 2025</h3>
+                            <button id="nextMonth" class="text-neutral-600 hover:text-primary-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Calendar days header -->
+                        <div class="grid grid-cols-7 text-center p-2 bg-neutral-50 border-b border-neutral-200">
+                            <div class="text-neutral-500 text-sm">Sun</div>
+                            <div class="text-neutral-500 text-sm">Mon</div>
+                            <div class="text-neutral-500 text-sm">Tue</div>
+                            <div class="text-neutral-500 text-sm">Wed</div>
+                            <div class="text-neutral-500 text-sm">Thu</div>
+                            <div class="text-neutral-500 text-sm">Fri</div>
+                            <div class="text-neutral-500 text-sm">Sat</div>
+                        </div>
+                        
+                        <!-- Calendar days -->
+                        <div id="calendarDays" class="grid grid-cols-7 auto-rows-fr">
+                            <!-- Days will be populated by JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- List View Toggle -->
+                    <div class="mt-4">
+                        <button id="toggleListView" class="w-full py-2 bg-neutral-100 text-neutral-700 rounded-lg hover:bg-neutral-200 transition-colors duration-200 flex items-center justify-center">
+                            <span id="toggleListText">Show as List</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- List View (hidden by default) -->
+                    <div id="listView" class="mt-4 hidden">
+                        <div class="border border-neutral-200 rounded-lg overflow-hidden">
+                            <div class="p-3 bg-neutral-50 border-b border-neutral-200 font-medium text-neutral-800">
+                                Upcoming Doses
+                            </div>
+                            <div id="dosesList" class="divide-y divide-neutral-200">
+                                <!-- Will be populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Information Column -->
+            <div>
+                <!-- Microdosing Info Card -->
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <h2 class="text-lg text-primary-700 mb-3">About Microdosing</h2>
+                    <div class="text-neutral-600">
+                        <p class="mb-3">Microdosing involves taking sub-perceptual amounts of psychedelics (typically 1/10 to 1/20 of a standard dose) on a regular schedule.</p>
+                        <p class="mb-3">Reported benefits may include enhanced creativity, improved mood, increased focus, and reduced anxiety. Research is ongoing.</p>
+                        <p>It's important to track your experiences and be mindful of tolerance buildup.</p>
+                    </div>
+                </div>
+                
+                <!-- Dosage Guidelines -->
+                <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                    <h2 class="text-lg text-primary-700 mb-3">Common Microdose Ranges</h2>
+                    <div class="space-y-3 text-neutral-600">
+                        <div class="flex justify-between items-center">
+                            <span>Psilocybin Mushrooms:</span>
+                            <span class="font-medium">0.05g - 0.3g</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>LSD:</span>
+                            <span class="font-medium">5μg - 20μg</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>1P-LSD:</span>
+                            <span class="font-medium">5μg - 20μg</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>DMT:</span>
+                            <span class="font-medium">1mg - 3mg</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span>Mescaline:</span>
+                            <span class="font-medium">50mg - 100mg</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tracking Tips -->
+                <div class="bg-white rounded-xl shadow-sm p-6">
+                    <h2 class="text-lg text-primary-700 mb-3">Tracking Tips</h2>
+                    <ul class="space-y-2 text-neutral-600">
+                        <li class="flex items-start">
+                            <span class="text-primary-500 mr-2">•</span>
+                            <span>Keep a journal to track effects and changes</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-primary-500 mr-2">•</span>
+                            <span>Be consistent with your timing and environment</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-primary-500 mr-2">•</span>
+                            <span>Note any changes in sleep, mood, and energy</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-primary-500 mr-2">•</span>
+                            <span>Take breaks to reset tolerance</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-primary-500 mr-2">•</span>
+                            <span>Consider blind days (placebo) to compare effects</span>
+                        </li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="journal.html" class="text-primary-600 hover:text-primary-700 font-medium flex items-center">
+                            <span>Go to Journal</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show/hide other substance field
+            document.getElementById('substanceType').addEventListener('change', function() {
+                const otherField = document.getElementById('otherSubstanceField');
+                if (this.value === 'other') {
+                    otherField.classList.remove('hidden');
+                } else {
+                    otherField.classList.add('hidden');
+                }
+            });
+            
+            // Show/hide custom schedule field
+            document.getElementById('scheduleType').addEventListener('change', function() {
+                const customField = document.getElementById('customScheduleField');
+                if (this.value === 'custom') {
+                    customField.classList.remove('hidden');
+                } else {
+                    customField.classList.add('hidden');
+                }
+            });
+            
+            // Set default dates
+            const today = new Date();
+            const todayFormatted = today.toISOString().split('T')[0];
+            document.getElementById('startDate').value = todayFormatted;
+            
+            // Generate schedule
+            document.getElementById('generateSchedule').addEventListener('click', function() {
+                // Get form values
+                const substance = document.getElementById('substanceType').value;
+                const dosage = document.getElementById('dosageAmount').value;
+                const dosageUnit = document.getElementById('dosageUnit').value;
+                const scheduleType = document.getElementById('scheduleType').value;
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+                
+                // Validate form
+                if (!substance || !dosage || !startDate) {
+                    alert('Please fill in all required fields (Substance, Dosage, and Start Date).');
+                    return;
+                }
+                
+                // Show schedule container
+                document.getElementById('scheduleContainer').classList.remove('hidden');
+                
+                // Generate and display calendar
+                generateCalendar(scheduleType, startDate, endDate);
+                
+                // Scroll to schedule
+                document.getElementById('scheduleContainer').scrollIntoView({ behavior: 'smooth' });
+                
+                // Set tolerance reset recommendation based on schedule type
+                let resetRecommendation = '';
+                switch(scheduleType) {
+                    case 'fadiman':
+                        resetRecommendation = '2-week break';
+                        break;
+                    case 'stamets':
+                        resetRecommendation = '3-week break';
+                        break;
+                    case 'everyOtherDay':
+                        resetRecommendation = '3-week break';
+                        break;
+                    case 'twice-weekly':
+                        resetRecommendation = '2-week break';
+                        break;
+                    default:
+                        resetRecommendation = '2-3 week break';
+                }
+                document.getElementById('toleranceReset').textContent = resetRecommendation;
+            });
+            
+            // Generate calendar for the schedule
+            function generateCalendar(scheduleType, startDate, endDate) {
+                // Parse dates
+                const start = new Date(startDate);
+                const end = endDate ? new Date(endDate) : new Date(start);
+                end.setMonth(end.getMonth() + 3); // Default to 3 months if no end date
+                
+                // Calculate dose days based on schedule type
+                const doseDays = calculateDoseDays(scheduleType, start, end);
+                
+                // Render the first month
+                renderCalendarMonth(start, doseDays);
+                
+                // Add next/prev month navigation
+                document.getElementById('nextMonth').addEventListener('click', function() {
+                    const currentMonthText = document.getElementById('currentMonth').textContent;
+                    const [month, year] = currentMonthText.split(' ');
+                    const monthIndex = new Date(`${month} 1, ${year}`).getMonth();
+                    const nextMonth = new Date(year, monthIndex + 1, 1);
+                    renderCalendarMonth(nextMonth, doseDays);
+                });
+                
+                document.getElementById('prevMonth').addEventListener('click', function() {
+                    const currentMonthText = document.getElementById('currentMonth').textContent;
+                    const [month, year] = currentMonthText.split(' ');
+                    const monthIndex = new Date(`${month} 1, ${year}`).getMonth();
+                    const prevMonth = new Date(year, monthIndex - 1, 1);
+                    renderCalendarMonth(prevMonth, doseDays);
+                });
+                
+                // Render list view
+                renderListView(doseDays);
+                
+                // Toggle list view
+                document.getElementById('toggleListView').addEventListener('click', function() {
+                    const listView = document.getElementById('listView');
+                    const toggleText = document.getElementById('toggleListText');
+                    
+                    if (listView.classList.contains('hidden')) {
+                        listView.classList.remove('hidden');
+                        toggleText.textContent = 'Hide List View';
+                    } else {
+                        listView.classList.add('hidden');
+                        toggleText.textContent = 'Show as List';
+                    }
+                });
+            }
+            
+            // Calculate dose days based on schedule type
+            function calculateDoseDays(scheduleType, start, end) {
+                const doseDays = [];
+                let currentDate = new Date(start);
+                
+                while (currentDate <= end) {
+                    let isDoseDay = false;
+                    
+                    switch(scheduleType) {
+                        case 'fadiman':
+                            // 1 day on, 2 days off
+                            const daysSinceStart = Math.floor((currentDate - start) / (1000 * 60 * 60 * 24));
+                            isDoseDay = daysSinceStart % 3 === 0;
+                            break;
+                        case 'stamets':
+                            // 4 days on, 3 days off
+                            const dayOfWeek = currentDate.getDay(); // 0 = Sunday, 6 = Saturday
+                            isDoseDay = dayOfWeek >= 1 && dayOfWeek <= 4; // Monday to Thursday
+                            break;
+                        case 'everyOtherDay':
+                            // Every other day
+                            const dayDiff = Math.floor((currentDate - start) / (1000 * 60 * 60 * 24));
+                            isDoseDay = dayDiff % 2 === 0;
+                            break;
+                        case 'twice-weekly':
+                            // Twice weekly (Monday and Thursday)
+                            const day = currentDate.getDay();
+                            isDoseDay = day === 1 || day === 4; // Monday or Thursday
+                            break;
+                        case 'custom':
+                            // For custom, we'd need more logic based on the custom input
+                            // This is simplified for demo purposes
+                            const customPattern = document.getElementById('customSchedule').value.toLowerCase();
+                            if (customPattern.includes('mon') || customPattern.includes('thu')) {
+                                const d = currentDate.getDay();
+                                isDoseDay = d === 1 || d === 4; // Monday or Thursday
+                            } else {
+                                // Default to every 3 days
+                                const days = Math.floor((currentDate - start) / (1000 * 60 * 60 * 24));
+                                isDoseDay = days % 3 === 0;
+                            }
+                            break;
+                    }
+                    
+                    if (isDoseDay) {
+                        doseDays.push(new Date(currentDate));
+                    }
+                    
+                    // Move to next day
+                    currentDate.setDate(currentDate.getDate() + 1);
+                }
+                
+                return doseDays;
+            }
+            
+            // Render calendar month
+            function renderCalendarMonth(date, doseDays) {
+                const monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"];
+                
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                
+                // Update month display
+                document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+                
+                // Get first day of month and total days
+                const firstDay = new Date(year, month, 1).getDay(); // 0 = Sunday
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                
+                // Generate calendar grid
+                const calendarDays = document.getElementById('calendarDays');
+                calendarDays.innerHTML = '';
+                
+                // Add empty cells for days before start of month
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'p-2 border border-neutral-100 bg-neutral-50';
+                    calendarDays.appendChild(emptyCell);
+                }
+                
+                // Add days of the month
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayCell = document.createElement('div');
+                    dayCell.className = 'p-2 border border-neutral-100 min-h-[60px]';
+                    
+                    const currentDate = new Date(year, month, day);
+                    const today = new Date();
+                    
+                    // Check if this is a dose day
+                    const isDoseDay = doseDays.some(doseDate => 
+                        doseDate.getDate() === day && 
+                        doseDate.getMonth() === month && 
+                        doseDate.getFullYear() === year
+                    );
+                    
+                    // Highlight today
+                    if (currentDate.getDate() === today.getDate() && 
+                        currentDate.getMonth() === today.getMonth() && 
+                        currentDate.getFullYear() === today.getFullYear()) {
+                        dayCell.classList.add('bg-neutral-100');
+                    }
+                    
+                    // Add day number
+                    const dayNumber = document.createElement('div');
+                    dayNumber.className = 'text-right text-sm text-neutral-500';
+                    dayNumber.textContent = day;
+                    dayCell.appendChild(dayNumber);
+                    
+                    // Add dose indicator if it's a dose day
+                    if (isDoseDay) {
+                        const doseIndicator = document.createElement('div');
+                        doseIndicator.className = 'mt-1 p-1 bg-primary-100 text-primary-800 text-xs rounded text-center';
+                        doseIndicator.textContent = 'Dose Day';
+                        dayCell.appendChild(doseIndicator);
+                    }
+                    
+                    calendarDays.appendChild(dayCell);
+                }
+            }
+            
+            // Render list view
+            function renderListView(doseDays) {
+                const dosesList = document.getElementById('dosesList');
+                dosesList.innerHTML = '';
+                
+                // Sort dose days chronologically
+                doseDays.sort((a, b) => a - b);
+                
+                // Show only upcoming doses (max 10)
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                const upcomingDoses = doseDays.filter(date => date >= today).slice(0, 10);
+                
+                if (upcomingDoses.length === 0) {
+                    const emptyMessage = document.createElement('div');
+                    emptyMessage.className = 'p-4 text-center text-neutral-500';
+                    emptyMessage.textContent = 'No upcoming doses scheduled';
+                    dosesList.appendChild(emptyMessage);
+                    return;
+                }
+                
+                upcomingDoses.forEach(date => {
+                    const doseItem = document.createElement('div');
+                    doseItem.className = 'p-3 flex justify-between items-center';
+                    
+                    const formattedDate = date.toLocaleDateString('en-US', { 
+                        weekday: 'short', 
+                        month: 'short', 
+                        day: 'numeric' 
+                    });
+                    
+                    const substanceType = document.getElementById('substanceType').value;
+                    const dosageAmount = document.getElementById('dosageAmount').value;
+                    const dosageUnit = document.getElementById('dosageUnit').value;
+                    
+                    doseItem.innerHTML = `
+                        <div>
+                            <div class="font-medium">${formattedDate}</div>
+                            <div class="text-sm text-neutral-500">${dosageAmount}${dosageUnit} ${substanceType}</div>
+                        </div>
+                        <div>
+                            <button class="text-primary-600 hover:text-primary-700 text-sm font-medium">Add to Calendar</button>
+                        </div>
+                    `;
+                    
+                    dosesList.appendChild(doseItem);
+                });
+            }
+            
+            // Edit schedule button
+            document.getElementById('editSchedule').addEventListener('click', function() {
+                document.getElementById('scheduleContainer').classList.add('hidden');
+            });
+            
+            // Export schedule button
+            document.getElementById('exportSchedule').addEventListener('click', function() {
+                alert('In a real app, this would export your schedule to a calendar file or sync with your calendar app.');
+            });
+        });
+    </script>
+</body>
+</html>

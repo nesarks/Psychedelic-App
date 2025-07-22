@@ -1,0 +1,131 @@
+/* Custom styles beyond Tailwind CSS */
+
+/* Global transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth page transitions */
+.page-transition {
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Breathing animation for meditation components */
+.breathing-circle {
+    animation: breathe 8s ease-in-out infinite;
+}
+
+@keyframes breathe {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Custom text selection colors */
+::selection {
+    background-color: rgba(139, 92, 246, 0.25);
+    color: inherit;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(243, 244, 246, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(107, 114, 128, 0.5);
+}
+
+/* Trip mode specific styles */
+.trip-mode-bg {
+    background-image: radial-gradient(
+        circle farthest-corner at 10% 20%,
+        rgba(109, 40, 217, 0.8) 0%,
+        rgba(4, 120, 87, 0.8) 90%
+    );
+    background-attachment: fixed;
+    background-size: 200% 200%;
+    animation: gradientMovement 30s ease infinite alternate;
+}
+
+@keyframes gradientMovement {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 100%;
+    }
+}
+
+/* Focus styles */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid rgba(124, 58, 237, 0.5);
+    outline-offset: 2px;
+}
+
+/* Safety indicator animation */
+.safety-indicator-pulse {
+    animation: safetyPulse 3s infinite;
+}
+
+@keyframes safetyPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* Quick fade transition for modals */
+.modal-fade {
+    transition: opacity 0.15s ease-in-out;
+}
+
+/* Intention entry highlight effect */
+.intention-highlight {
+    background: linear-gradient(104deg, rgba(139, 92, 246, 0) 0.9%, rgba(139, 92, 246, 0.1) 2.4%, rgba(139, 92, 246, 0.1) 97.7%, rgba(139, 92, 246, 0) 100%);
+}
+
+/* Calendar day hover effect */
+.calendar-day:hover {
+    box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.5);
+}

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Journey | Trip Mode</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/custom.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        secondary: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        neutral: {
+                            50: '#fafafa',
+                            100: '#f5f5f5',
+                            200: '#e5e5e5',
+                            300: '#d4d4d4',
+                            400: '#a3a3a3',
+                            500: '#737373',
+                            600: '#525252',
+                            700: '#404040',
+                            800: '#262626',
+                            900: '#171717',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'breathe': 'breathe 8s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        breathe: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth scrolling for the chat container */
+        .chat-container {
+            scroll-behavior: smooth;
+        }
+        
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        /* Custom breathing animation for the background */
+        .bg-breathing {
+            animation: bg-breathe 12s ease-in-out infinite;
+        }
+        
+        @keyframes bg-breathe {
+            0%, 100% {
+                background-size: 100% 100%;
+            }
+            50% {
+                background-size: 105% 105%;
+            }
+        }
+        
+        /* Glow effect for messages */
+        .message-glow {
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .message-glow:hover {
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-primary-900 via-primary-800 to-secondary-900 min-h-screen text-white">
+    <!-- Emergency Exit Button -->
+    <button id="emergencyExitBtn" class="fixed top-4 right-4 bg-red-500 hover:bg-red-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg z-50 transition-all duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+
+    <!-- Hidden Exit Modal -->
+    <div id="exitModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4 text-neutral-800">
+            <h3 class="text-xl font-medium mb-4">Are you sure you want to exit?</h3>
+            <p class="mb-6">You can always return to trip mode. Would you like to exit completely or just take a short break?</p>
+            <div class="grid grid-cols-2 gap-4">
+                <a href="index.html" class="py-3 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg transition-colors duration-200 text-center">
+                    Exit to Home
+                </a>
+                <button id="stayInTripMode" class="py-3 bg-primary-100 hover:bg-primary-200 text-primary-700 rounded-lg transition-colors duration-200">
+                    Stay Here
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-col md:flex-row h-screen">
+        <!-- Left Side: Chat History -->
+        <div class="w-full md:w-3/5 p-4 flex flex-col h-full">
+            <!-- Trip Mode Header -->
+            <header class="mb-4 flex items-center">
+                <div class="w-3 h-3 rounded-full bg-green-400 animate-pulse mr-2"></div>
+                <h1 class="text-xl font-light">Trip Mode</h1>
+                <span id="timeElapsed" class="ml-auto text-sm text-neutral-300">00:00:00</span>
+            </header>
+
+            <!-- Chat Container -->
+            <div id="chatContainer" class="flex-1 overflow-y-auto hide-scrollbar pb-4 space-y-4">
+                <!-- Welcome Message -->
+                <div class="message-glow bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4 max-w-3xl mx-auto">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center mr-3 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-white mb-1">Welcome to Trip Mode. I'm here to support you throughout your journey. How are you feeling right now?</p>
+                            <span class="text-xs text-neutral-400">Just now</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message about intention -->
+                <div class="message-glow bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4 max-w-3xl mx-auto">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center mr-3 flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-white mb-1">I see you set an intention for <span id="intentionDisplay" class="font-medium text-primary-300">personal growth</span>. Remember that you can always come back to this intention if you need grounding.</p>
+                            <span class="text-xs text-neutral-400">Just now</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Messages will be added here dynamically -->
+            </div>
+
+            <!-- Message Input -->
+            <div class="mt-2 bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-3 flex items-center">
+                <input id="messageInput" type="text" placeholder="Share what you're experiencing..." class="flex-1 bg-transparent border-none outline-none text-white placeholder-neutral-400">
+                <button id="sendMessageBtn" class="ml-2 w-10 h-10 rounded-full bg-primary-600 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" transform="rotate(90 12 12)" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Side: Helpful Tools -->
+        <div class="w-full md:w-2/5 bg-black bg-opacity-30 backdrop-blur-sm p-4 flex flex-col h-full">
+            <h2 class="text-lg font-light mb-4">Helpful Resources</h2>
+            
+            <!-- Quick Response Buttons -->
+            <div class="mb-6">
+                <h3 class="text-sm uppercase tracking-wider text-neutral-400 mb-2">I'm feeling...</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button class="quick-prompt p-3 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors duration-200">
+                        I feel anxious
+                    </button>
+                    <button class="quick-prompt p-3 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors duration-200">
+                        I feel overwhelmed
+                    </button>
+                    <button class="quick-prompt p-3 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors duration-200">
+                        I need grounding
+                    </button>
+                    <button class="quick-prompt p-3 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors duration-200">
+                        I see beautiful things
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Breathing Exercise -->
+            <div class="mb-6 bg-gradient-to-br from-primary-700 to-primary-900 rounded-lg p-4">
+                <h3 class="text-white mb-2 font-medium">Breathing Exercise</h3>
+                <div class="flex flex-col items-center justify-center">
+                    <div id="breathingCircle" class="w-24 h-24 rounded-full bg-white bg-opacity-20 flex items-center justify-center animate-breathe mb-3">
+                        <div class="w-16 h-16 rounded-full bg-white bg-opacity-30"></div>
+                    </div>
+                    <p id="breathingText" class="text-white text-center">Breathe in...</p>
+                    <button id="toggleBreathing" class="mt-3 px-4 py-2 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-colors duration-200">
+                        Start
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Music Controls -->
+            <div class="mb-6 bg-white bg-opacity-10 rounded-lg p-4">
+                <h3 class="text-white mb-3 font-medium">Calming Sounds</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span>Ambient Music</span>
+                        <button class="music-toggle px-3 py-1 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors duration-200">
+                            Play
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Nature Sounds</span>
+                        <button class="music-toggle px-3 py-1 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors duration-200">
+                            Play
+                        </button>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Binaural Beats</span>
+                        <button class="music-toggle px-3 py-1 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors duration-200">
+                            Play
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Grounding Exercises -->
+            <div class="mb-6">
+                <h3 class="text-sm uppercase tracking-wider text-neutral-400 mb-2">Grounding Techniques</h3>
+                <div class="bg-white bg-opacity-10 rounded-lg">
+                    <button id="grounding5things" class="w-full text-left p-3 hover:bg-white hover:bg-opacity-5 transition-colors duration-200 border-b border-white border-opacity-10">
+                        <div class="flex items-center">
+                            <span class="text-primary-300 mr-2">•</span>
+                            <span>5-4-3-2-1 Sensory Exercise</span>
+                        </div>
+                    </button>
+                    <button id="groundingBreath" class="w-full text-left p-3 hover:bg-white hover:bg-opacity-5 transition-colors duration-200 border-b border-white border-opacity-10">
+                        <div class="flex items-center">
+                            <span class="text-primary-300 mr-2">•</span>
+                            <span>Box Breathing</span>
+                        </div>
+                    </button>
+                    <button id="groundingBodyScan" class="w-full text-left p-3 hover:bg-white hover:bg-opacity-5 transition-colors duration-200">
+                        <div class="flex items-center">
+                            <span class="text-primary-300 mr-2">•</span>
+                            <span>Body Scan</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Journal Prompt -->
+            <div class="mt-auto">
+                <button id="captureInsight" class="w-full p-3 bg-secondary-700 hover:bg-secondary-600 text-white rounded-lg transition-colors duration-200 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                    Capture Insight
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Grounding Technique Modal -->
+    <div id="groundingModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-primary-900 border border-primary-700 rounded-xl p-6 max-w-md w-full mx-4 text-white">
+            <h3 id="groundingTitle" class="text-xl font-medium mb-4">5-4-3-2-1 Technique</h3>
+            <div id="groundingContent" class="mb-6">
+                <!-- Content will be inserted dynamically -->
+            </div>
+            <button id="closeGroundingModal" class="w-full py-3 bg-primary-700 hover:bg-primary-600 text-white rounded-lg transition-colors duration-200">
+                Close
+            </button>
+        </div>
+    </div>
+    
+    <!-- Insight Journal Modal -->
+    <div id="insightModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-primary-900 border border-primary-700 rounded-xl p-6 max-w-md w-full mx-4 text-white">
+            <h3 class="text-xl font-medium mb-4">Capture Your Insight</h3>
+            <textarea id="insightText" rows="5" class="w-full p-3 bg-white bg-opacity-10 border border-primary-700 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none mb-4" placeholder="What insights, emotions, or realizations are you experiencing?"></textarea>
+            <div class="flex justify-between">
+                <button id="closeInsightModal" class="py-3 px-4 bg-primary-700 hover:bg-primary-600 text-white rounded-lg transition-colors duration-200">
+                    Save for Later
+                </button>
+                <button id="saveInsight" class="py-3 px-4 bg-secondary-700 hover:bg-secondary-600 text-white rounded-lg transition-colors duration-200">
+                    Save & Continue
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/trip-mode.js"></script>
+    <script>
+        // Trip Mode functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize variables
+            let tripStartTime = new Date();
+            let breathingActive = false;
+            let breathingInterval;
+            let elapsedTimeInterval;
+            
+            // Load trip information if available
+            const tripPrep = JSON.parse(localStorage.getItem('tripPreparation') || '{}');
+            if (tripPrep.intention && tripPrep.intention.type) {
+                document.getElementById('intentionDisplay').textContent = tripPrep.intention.type;
+            }
+            
+            // Start elapsed time counter
+            updateElapsedTime();
+            elapsedTimeInterval = setInterval(updateElapsedTime, 1000);
+            
+            function updateElapsedTime() {
+                const now = new Date();
+                const diff = now - tripStartTime;
+                
+                const hours = Math.floor(diff / 3600000);
+                const minutes = Math.floor((diff % 3600000) / 60000);
+                const seconds = Math.floor((diff % 60000) / 1000);
+                
+                document.getElementById('timeElapsed').textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            // Emergency Exit button
+            document.getElementById('emergencyExitBtn').addEventListener('click', function() {
+                document.getElementById('exitModal').classList.remove('hidden');
+            });
+            
+            document.getElementById('stayInTripMode').addEventListener('click', function() {
+                document.getElementById('exitModal').classList.add('hidden');
+            });
+            
+            // Message input functionality
+            document.getElementById('sendMessageBtn').addEventListener('click', sendMessage);
+            document.getElementById('messageInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            function sendMessage() {
+                const input = document.getElementById('messageInput');
+                const message = input.value.trim();
+                
+                if (message) {
+                    // Add user message to chat
+                    addMessageToChat(message, 'user');
+                    input.value = '';
+                    
+                    // Simulate AI response (in a real app, this would call your Flask backend)
+                    setTimeout(() => {
+                        const responses = [
+                            "I hear you're experiencing that. How does it make you feel in your body?",
+                            "That's a common experience. Remember to breathe and stay present with it.",
+                            "It sounds like you're having a meaningful insight. Would you like to explore it further?",
+                            "Thank you for sharing. Would a breathing exercise help right now?",
+                            "I'm here with you through this experience. What do you need in this moment?"
+                        ];
+                        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                        addMessageToChat(randomResponse, 'ai');
+                    }, 1000);
+                }
+            }
+            
+            function addMessageToChat(message, sender) {
+                const chatContainer = document.getElementById('chatContainer');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message-glow bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-4 max-w-3xl mx-auto';
+                
+                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                if (sender === 'user') {
+                    messageDiv.innerHTML = `
+                        <div class="flex items-start flex-row-reverse">
+                            <div class="w-8 h-8 rounded-full bg-secondary-600 flex items-center justify-center ml-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-white mb-1">${message}</p>
+                                <span class="text-xs text-neutral-400">${time}</span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    messageDiv.innerHTML = `
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center mr-3 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-white mb-1">${message}</p>
+                                <span class="text-xs text-neutral-400">${time}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                chatContainer.appendChild(messageDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+            
+            // Quick response buttons
+            document.querySelectorAll('.quick-prompt').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.getElementById('messageInput').value = this.textContent.trim();
+                    sendMessage();
+                });
+            });
+            
+            // Breathing exercise
+            document.getElementById('toggleBreathing').addEventListener('click', function() {
+                const breathingCircle = document.getElementById('breathingCircle');
+                const breathingText = document.getElementById('breathingText');
+                
+                if (!breathingActive) {
+                    // Start breathing exercise
+                    breathingActive = true;
+                    this.textContent = 'Stop';
+                    breathingCircle.style.animation = 'none'; // Reset animation
+                    
+                    let phase = 'inhale';
+                    let counter = 4;
+                    
+                    breathingInterval = setInterval(() => {
+                        if (phase === 'inhale') {
+                            breathingText.textContent = `Breathe in... ${counter}`;
+                            breathingCircle.style.transform = `scale(${1 + (0.2 * (4 - counter) / 4)})`;
+                            counter--;
+                            
+                            if (counter < 0) {
+                                phase = 'hold1';
+                                counter = 4;
+                            }
+                        } else if (phase === 'hold1') {
+                            breathingText.textContent = `Hold... ${counter}`;
+                            counter--;
+                            
+                            if (counter < 0) {
+                                phase = 'exhale';
+                                counter = 4;
+                            }
+                        } else if (phase === 'exhale') {
+                            breathingText.textContent = `Breathe out... ${counter}`;
+                            breathingCircle.style.transform = `scale(${1.2 - (0.2 * (4 - counter) / 4)})`;
+                            counter--;
+                            
+                            if (counter < 0) {
+                                phase = 'hold2';
+                                counter = 4;
+                            }
+                        } else if (phase === 'hold2') {
+                            breathingText.textContent = `Hold... ${counter}`;
+                            counter--;
+                            
+                            if (counter < 0) {
+                                phase = 'inhale';
+                                counter = 4;
+                            }
+                        }
+                    }, 1000);
+                } else {
+                    // Stop breathing exercise
+                    breathingActive = false;
+                    this.textContent = 'Start';
+                    clearInterval(breathingInterval);
+                    breathingText.textContent = 'Breathe in...';
+                    breathingCircle.style.animation = 'breathe 8s ease-in-out infinite';
+                    breathingCircle.style.transform = 'scale(1)';
+                }
+            });
+            
+            // Music controls
+            document.querySelectorAll('.music-toggle').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent.trim() === 'Play') {
+                        // Reset all buttons to "Play"
+                        document.querySelectorAll('.music-toggle').forEach(btn => {
+                            btn.textContent = 'Play';
+                            btn.classList.remove('bg-secondary-600');
+                        });
+                        
+                        // Set this button to "Stop"
+                        this.textContent = 'Stop';
+                        this.classList.add('bg-secondary-600');
+                        
+                        // In a real app, this would trigger playing the sound
+                        // playSound(this.dataset.sound);
+                    } else {
+                        this.textContent = 'Play';
+                        this.classList.remove('bg-secondary-600');
+                        // stopSound();
+                    }
+                });
+            });
+            
+            // Grounding techniques
+            const groundingTechniques = {
+                '5-4-3-2-1 Sensory Exercise': `
+                    <p class="mb-3">This technique helps anchor you to the present moment using your five senses:</p>
+                    <ol class="space-y-2">
+                        <li><strong>5 things you can see</strong> - Look around and name 5 things you can see</li>
+                        <li><strong>4 things you can touch/feel</strong> - Notice 4 things you can physically feel</li>
+                        <li><strong>3 things you can hear</strong> - Listen for 3 distinct sounds</li>
+                        <li><strong>2 things you can smell</strong> - Notice 2 things you can smell (or like to smell)</li>
+                        <li><strong>1 thing you can taste</strong> - Notice 1 thing you can taste right now</li>
+                    </ol>
+                    <p class="mt-3">Take your time with each step, fully experiencing each sensation.</p>
+                `,
+                'Box Breathing': `
+                    <p class="mb-3">Box breathing is a simple technique for regulating your breath:</p>
+                    <ol class="space-y-2">
+                        <li><strong>Inhale</strong> slowly through your nose for 4 seconds</li>
+                        <li><strong>Hold</strong> your breath for 4 seconds</li>
+                        <li><strong>Exhale</strong> slowly through your mouth for 4 seconds</li>
+                        <li><strong>Hold</strong> the empty breath for 4 seconds</li>
+                    </ol>
+                    <p class="mt-3">Repeat this cycle for 2-3 minutes or until you feel centered.</p>
+                `,
+                'Body Scan': `
+                    <p class="mb-3">A body scan helps you reconnect with physical sensations:</p>
+                    <p class="mb-2">Start by bringing awareness to your feet and slowly move up through your body.</p>
+                    <ul class="space-y-2">
+                        <li>Notice any sensations in your feet, legs, hips...</li>
+                        <li>Continue to your torso, back, chest, shoulders...</li>
+                        <li>Then to your arms, hands, neck, and finally your head</li>
+                    </ul>
+                    <p class="mt-3">For each area, simply notice any sensations without judgment - heaviness, lightness, warmth, tension, etc.</p>
+                `
+            };
+            
+            document.getElementById('grounding5things').addEventListener('click', function() {
+                showGroundingModal('5-4-3-2-1 Sensory Exercise');
+            });
+            
+            document.getElementById('groundingBreath').addEventListener('click', function() {
+                showGroundingModal('Box Breathing');
+            });
+            
+            document.getElementById('groundingBodyScan').addEventListener('click', function() {
+                showGroundingModal('Body Scan');
+            });
+            
+            function showGroundingModal(technique) {
+                document.getElementById('groundingTitle').textContent = technique;
+                document.getElementById('groundingContent').innerHTML = groundingTechniques[technique];
+                document.getElementById('groundingModal').classList.remove('hidden');
+            }
+            
+            document.getElementById('closeGroundingModal').addEventListener('click', function() {
+                document.getElementById('groundingModal').classList.add('hidden');
+            });
+            
+            // Insight journal
+            document.getElementById('captureInsight').addEventListener('click', function() {
+                document.getElementById('insightModal').classList.remove('hidden');
+            });
+            
+            document.getElementById('closeInsightModal').addEventListener('click', function() {
+                document.getElementById('insightModal').classList.add('hidden');
+            });
+            
+            document.getElementById('saveInsight').addEventListener('click', function() {
+                const insight = document.getElementById('insightText').value.trim();
+                
+                if (insight) {
+                    // In a real app, this would save to your Flask backend
+                    // saveInsight(insight);
+                    
+                    // For now, just store in localStorage
+                    const insights = JSON.parse(localStorage.getItem('insights') || '[]');
+                    insights.push({
+                        text: insight,
+                        timestamp: new Date().toISOString()
+                    });
+                    localStorage.setItem('insights', JSON.stringify(insights));
+                    
+                    // Clear and close modal
+                    document.getElementById('insightText').value = '';
+                    document.getElementById('insightModal').classList.add('hidden');
+                    
+                    // Show confirmation
+                    addMessageToChat("Your insight has been saved to your journal for later reflection.", "ai");
+                }
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // ESC key to show exit modal
+                if (e.key === 'Escape') {
+                    document.getElementById('exitModal').classList.remove('hidden');
+                }
+                
+                // Shortcut keys with Ctrl or Cmd
+                if (e.ctrlKey || e.metaKey) {
+                    if (e.key === 'b' || e.key === 'B') {
+                        // Ctrl+B for breathing exercise
+                        e.preventDefault();
+                        document.getElementById('toggleBreathing').click();
+                    } else if (e.key === 'j' || e.key === 'J') {
+                        // Ctrl+J for journal
+                        e.preventDefault();
+                        document.getElementById('captureInsight').click();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
