@@ -1,0 +1,231 @@
+/* Base Design System for Natural Flow */
+:root {
+  --sand: #EDE7DA;
+  --moss: #A8C2A0;
+  --river: #A5BCC2;
+  --dark-moss: #84A97C;
+  --dark-sand: #D8D0C0;
+  --text: #333333;
+  --shadow: rgba(0, 0, 0, 0.1);
+  
+  /* Animation speeds */
+  --transition-slow: 0.8s;
+  --transition-medium: 0.4s;
+  --transition-fast: 0.2s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Open Sans', sans-serif;
+  background-color: var(--sand);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Buttons */
+.btn {
+  background-color: var(--moss);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast) ease;
+  box-shadow: 0 4px 6px var(--shadow);
+}
+
+.btn:hover {
+  background-color: var(--dark-moss);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px var(--shadow);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: var(--river);
+}
+
+.btn-large {
+  padding: 1.2rem 2.5rem;
+  font-size: 1.3rem;
+}
+
+.btn-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Card styles */
+.card {
+  background-color: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 16px var(--shadow);
+  transition: all var(--transition-medium) ease;
+}
+
+.card:hover {
+  box-shadow: 0 12px 20px var(--shadow);
+}
+
+/* Animations */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Safety bubble - persistent across all pages */
+.safety-bubble {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.safety-button {
+  background-color: var(--river);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.safety-button:hover {
+  transform: scale(1.1);
+}
+
+.safety-button img {
+  width: 30px;
+  height: 30px;
+}
+
+.safety-popup {
+  position: fixed;
+  bottom: 5rem;
+  right: 2rem;
+  width: 320px;
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  transform: scale(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease;
+  z-index: 1001;
+}
+
+.safety-popup.active {
+  transform: scale(1);
+}
+
+.safety-popup h3 {
+  color: var(--dark-moss);
+  margin-bottom: 1rem;
+}
+
+.safety-popup .comfort-anchors {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.anchor-item {
+  background: var(--sand);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.anchor-item:hover {
+  background: var(--dark-sand);
+}
+
+.anchor-item img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* Background ripple animation */
+.background-ripple {
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--river) 0%, transparent 70%);
+  opacity: 0.1;
+  animation: breathe 15s infinite ease-in-out;
+  z-index: -1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+  
+  .btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .safety-popup {
+    width: calc(100% - 2rem);
+    right: 1rem;
+    left: 1rem;
+  }
+  
+  .background-ripple {
+    width: 200px;
+    height: 200px;
+  }
+}

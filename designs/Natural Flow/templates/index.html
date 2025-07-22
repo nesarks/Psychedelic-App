@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Natural Flow - Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <style>
+    .home-view {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .home-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.5s ease;
+      z-index: 2;
+    }
+    
+    .home-content.slide-out {
+      transform: translateX(-100%);
+    }
+    
+    .app-logo {
+      margin-bottom: 2rem;
+    }
+    
+    .app-logo img {
+      width: 180px;
+      height: auto;
+    }
+    
+    .tree-container {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      margin: 2rem auto;
+      transition: all 1s ease;
+    }
+    
+    .tree-container svg {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .tree-seedling .tree-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: drawTree 3s forwards ease-in-out;
+    }
+    
+    .tree-sapling .tree-path {
+      stroke-dashoffset: 0;
+    }
+    
+    @keyframes drawTree {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    
+    .tree-description {
+      font-size: 1.2rem;
+      color: var(--text);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      opacity: 0;
+      animation: fadeIn 1s forwards 0.5s;
+    }
+    
+    .begin-journey-btn {
+      animation: fadeIn 1s forwards 1s;
+      opacity: 0;
+    }
+    
+    .background-ripple-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--river) 0%, transparent 70%);
+      opacity: 0.1;
+      animation: ripple 8s infinite linear;
+    }
+    
+    /* Tree growth stages */
+    .tree-seedling .tree-svg {
+      transform: scale(0.6);
+    }
+    
+    .tree-sapling .tree-svg {
+      transform: scale(0.75);
+    }
+    
+    .tree-young .tree-svg {
+      transform: scale(0.85);
+    }
+    
+    .tree-mature .tree-svg {
+      transform: scale(0.95);
+    }
+    
+    .tree-flourishing .tree-svg {
+      transform: scale(1);
+    }
+    
+    /* Add leaves based on growth stage */
+    .tree-leaf {
+      opacity: 0;
+      transform-origin: center;
+    }
+    
+    .tree-sapling .tree-leaf-1,
+    .tree-sapling .tree-leaf-2 {
+      opacity: 1;
+      animation: growLeaf 1s forwards;
+    }
+    
+    .tree-young .tree-leaf-1,
+    .tree-young .tree-leaf-2,
+    .tree-young .tree-leaf-3,
+    .tree-young .tree-leaf-4 {
+      opacity: 1;
+      animation: growLeaf 1s forwards;
+    }
+    
+    .tree-mature .tree-leaf,
+    .tree-flourishing .tree-leaf {
+      opacity: 1;
+      animation: growLeaf 1s forwards;
+    }
+    
+    .tree-flourishing .tree-leaf {
+      animation: sway 5s infinite alternate ease-in-out;
+    }
+    
+    @keyframes growLeaf {
+      from {
+        transform: scale(0);
+      }
+      to {
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes sway {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(5deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="home-view">
+    <div class="background-ripple-container"></div>
+    
+    <div class="home-content">
+      <div class="app-logo">
+        <img src="/static/images/logo.svg" alt="Natural Flow">
+      </div>
+      
+      <h1>Natural Flow</h1>
+      <p>Your journey to inner peace and growth</p>
+      
+      <div class="tree-container tree-seedling">
+        <svg viewBox="0 0 200 300" class="tree-svg">
+          <!-- Tree trunk -->
+          <path class="tree-path" d="M100,250 Q100,180 100,100" 
+                stroke="var(--dark-moss)" 
+                stroke-width="8" 
+                fill="none"/>
+          
+          <!-- Branches -->
+          <path class="tree-path" d="M100,200 Q120,190 140,195" 
+                stroke="var(--dark-moss)" 
+                stroke-width="5" 
+                fill="none"/>
+          
+          <path class="tree-path" d="M100,170 Q80,160 60,165" 
+                stroke="var(--dark-moss)" 
+                stroke-width="5" 
+                fill="none"/>
+          
+          <path class="tree-path" d="M100,140 Q125,130 130,110" 
+                stroke="var(--dark-moss)" 
+                stroke-width="4" 
+                fill="none"/>
+          
+          <path class="tree-path" d="M100,120 Q75,110 70,90" 
+                stroke="var(--dark-moss)" 
+                stroke-width="4" 
+                fill="none"/>
+          
+          <!-- Leaves -->
+          <circle class="tree-leaf tree-leaf-1" cx="140" cy="195" r="15" fill="var(--moss)"/>
+          <circle class="tree-leaf tree-leaf-2" cx="60" cy="165" r="15" fill="var(--moss)"/>
+          <circle class="tree-leaf tree-leaf-3" cx="130" cy="110" r="12" fill="var(--moss)"/>
+          <circle class="tree-leaf tree-leaf-4" cx="70" cy="90" r="12" fill="var(--moss)"/>
+          <circle class="tree-leaf tree-leaf-5" cx="100" cy="80" r="18" fill="var(--moss)"/>
+          <circle class="tree-leaf tree-leaf-6" cx="115" cy="155" r="10" fill="var(--moss)"/>
+          <circle class="tree-leaf tree-leaf-7" cx="85" cy="140" r="10" fill="var(--moss)"/>
+          
+          <!-- Ground/Roots -->
+          <path d="M50,250 Q100,240 150,250" 
+                stroke="var(--dark-sand)" 
+                stroke-width="5" 
+                fill="var(--sand)"/>
+        </svg>
+      </div>
+      
+      <p class="tree-description">Your journey is just beginning. Plant your first intention.</p>
+      
+      <button class="btn btn-large begin-journey-btn">Begin Your Journey</button>
+    </div>
+    
+    <!-- Safety Bubble (persistent across all pages) -->
+    <div class="safety-bubble">
+      <div class="safety-button">
+        <img src="/static/images/heart.svg" alt="Safety">
+      </div>
+      
+      <div class="safety-popup">
+        <h3>Are you okay?</h3>
+        <p>Take a deep breath. Remember you are safe and this experience is temporary.</p>
+        
+        <div class="comfort-anchors">
+          <div class="anchor-item" id="anchor-image">
+            <img src="/static/images/calm-nature.jpg" alt="Calm image">
+          </div>
+          <div class="anchor-item" id="anchor-mantra">
+            <p>"I am safe in this moment"</p>
+          </div>
+          <div class="anchor-item" id="anchor-quote">
+            <p>"The only way out is through"</p>
+          </div>
+          <div class="anchor-item" id="anchor-breath">
+            <p>Breathe with me</p>
+          </div>
+        </div>
+        
+        <button class="btn close-btn">I'm Okay</button>
+        <button class="btn btn-secondary emergency-hide-btn">Hide Screen</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="/static/main.js"></script>
+</body>
+</html>
