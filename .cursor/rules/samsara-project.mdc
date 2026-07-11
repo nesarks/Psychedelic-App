@@ -1,0 +1,28 @@
+---
+description: Samsara project gates, layout, and doc-first workflow
+alwaysApply: true
+---
+
+# Samsara project rules
+
+## Phase gate
+- Check `docs/business/SCOPE.md` **Status** before implementing features.
+- If status is `DRAFT` or not `APPROVED`: only edit docs, structure, or scope — no backend/frontend feature code.
+- After scope is `APPROVED`: write `docs/product/USER_JOURNEY.md` and `USE_CASES.md` before scaffolding apps.
+
+## Layout
+- Planning lives in `docs/` — see `docs/README.md`.
+- New application code goes in `backend/` (FastAPI) or `frontend/` — never in `legacy/`.
+- Legacy under `legacy/` is read-only reference; port logic instead of extending.
+
+## Stack (when building)
+- API: FastAPI + MongoDB (v1+). MVP is local-first per business scope.
+- Product name in UI: **Samsara** (not Mindful Journey).
+
+## Efficiency
+- Read `AGENTS.md` and `docs/README.md` first; avoid duplicating scope across files.
+- Prefer small, module-scoped changes aligned with docs/product use case IDs (once written).
+
+## Safety
+- No substance sourcing, no medical prescriptions, no replacing 911/sitter/therapist.
+- User-facing flows need harm-reduction disclaimers per `docs/business/SCOPE.md` §8.

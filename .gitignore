@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+dist/
+build/
+
+# Node (future frontend)
+node_modules/
+dist/
+.next/
+.turbo/
+
+# IDE
+.idea/
+*.swp
+.DS_Store
+
+# Logs & local
+*.log
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Mongo / Docker local data
+data/
